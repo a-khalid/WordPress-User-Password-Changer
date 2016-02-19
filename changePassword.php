@@ -141,7 +141,7 @@ $current_file = $current_file[$count];
 
 <div class="wrap">
     <header>
-        <h1><a href="<?php echo $current_file ?>">User Changer Password</a></h1>
+        <h1><a href="<?php echo $current_file ?>">User Password Changer</a></h1>
     </header>
     <?php
     if(empty($_GET) and empty($_POST)){
