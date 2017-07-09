@@ -145,22 +145,24 @@ $current_file = $current_file[$count];
     </header>
     <?php
     if(empty($_GET) and empty($_POST)){
-        $get_all_users = $wpdb->get_results("SELECT * FROM $table_name");
+        $user_query = new WP_User_Query( array( 'role' => 'Administrator' ) );
+        //print_r($user_query->get_results());
+        $get_all_users = $user_query->get_results();
         ?>
         <h2 class="text-center">Users</h2>
         <table class="users">
             <tr>
                 <th style="width: 40px">ID</th>
-                <th>Nicename</th>
+                <th>Admin login</th>
                 <th>Email</th>
                 <th>Action</th>
             </tr>
             <?php foreach($get_all_users as $user) {?>
             <tr>
-                <td><?php echo $user->ID; ?></td>
-                <td><?php echo $user->user_nicename; ?></td>
-                <td><?php echo $user->user_email; ?></td>
-                <td class="text-center"><a href="<?php echo $current_url; ?>?change=1&user=<?php echo $user->ID; ?>">Change Password</a></td>
+                <td><?php echo $user->data->ID; ?></td>
+                <td><?php echo $user->data->user_login; ?></td>
+                <td><?php echo $user->data->user_email; ?></td>
+                <td class="text-center"><a href="<?php echo $current_url; ?>?change=1&user=<?php echo $user->data->ID; ?>">Change Password</a></td>
             </tr>
             <?php } ?>
         </table>
@@ -183,7 +185,7 @@ $current_file = $current_file[$count];
             <div class="form-row">
                 <label for="password">Password :</label>
                 <div class="input">
-                    <input type="password" id="password" value="" name="password">
+                    <input type="text" id="password" value="" name="password">
                 </div>
             </div>
             <div class="form-row">
